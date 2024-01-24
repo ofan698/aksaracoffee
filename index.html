@@ -17,7 +17,7 @@
     />
     <script src="https://unpkg.com/feather-icons"></script>
   </head>
-
+  
   <body>
     <!-- navbar -->
     <nav class="navbar">
@@ -27,26 +27,70 @@
         <a href="#home" class="">Home</a>
         <a href="#about" class="">About Us</a>
         <a href="#menu" class="">Menu</a>
+        <a href="#products" class="">Products</a>
         <a href="#contact" class="">Contact</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"><i data-feather="search"></i></a>
-        <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button"><i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
+
+      <!-- search -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here...">
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+
+
+    <!-- shoppping cart -->
+    <div class="shopping-cart">
+      <div class="cart-item">
+        <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
+        <div class="item-detail">
+          <h3>product 1</h3>
+          <div class="item-price">IDR 30K</div>
+        </div>
+
+        <i data-feather="trash-2" class="remove-item"></i>
+      </div>
+      <div class="cart-item">
+        <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
+        <div class="item-detail">
+          <h3>product 1</h3>
+          <div class="item-price">IDR 30K</div>
+        </div>
+
+        <i data-feather="trash-2" class="remove-item"></i>
+      </div>
+      <div class="cart-item">
+        <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
+        <div class="item-detail">
+          <h3>product 1</h3>
+          <div class="item-price">IDR 30K</div>
+        </div>
+
+        <i data-feather="trash-2" class="remove-item"></i>
+      </div>
+      
+    </div>
+
+
     </nav>
 
     <!-- pembuka -->
     <section class="hero" id="home">
+      <div class="mask-container">
       <main class="content">
         <h1>Let's enjoy a cup of <span>Coffee</span></h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
           est.
         </p>
-        <a href="#" class="cta">Order Now</a>
+        
       </main>
+    </div>
     </section>
     <!-- pembuka end -->
 
@@ -96,6 +140,78 @@
     </section>
     <!-- menu section end-->
 
+    <!-- product list -->
+    <section class="products" id="products">
+      <h2><span>Our</span> Products</h2>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia reiciendis tenetur suscipit, tempore, quidem possimus error rerum vitae eaque atque dignissimos, iste soluta. Vitae cupiditate pariatur voluptates praesentium recusandae dolor.</p>
+
+      <div class="row">
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
+          </div>
+          <div class="product-content">
+            <h3>Jamaican - Nganjuk Coffee Beans</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+
+            <div class="product-price">IDR 30K <span>IDR 45K</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
+          </div>
+          <div class="product-content">
+            <h3>Jamaican - Nganjuk Coffee Beans</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+            </div>
+
+            <div class="product-price">IDR 30K <span>IDR 45K</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
+          </div>
+          <div class="product-content">
+            <h3>Jamaican - Nganjuk Coffee Beans</h3>
+            <div class="product-stars">
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+            </div>
+
+            <div class="product-price">IDR 30K <span>IDR 45K</span></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
     <!-- contact section -->
     <section id="contact" class="contact">
       <h2><span>Our</span> Contact</h2>
@@ -146,6 +262,33 @@
         <p>Made with ❤️ by <a href="">aksaracoffee.</a> | &copy; 2024.</p>
       </div>
     </footer>
+
+    <!-- modal box item -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="assets/img/product/manki-kim-mv7kxYh5Rko-unsplash (1).jpg" alt="Product 1">
+          <div class="product-content">
+            <h3>Product 1</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam possimus dignissimos voluptatum odio laborum non eveniet illum officiis beatae, delectus enim, minus ratione.</p>
+
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+            </div>
+
+            <div class="product-price">IDR 30K <span>IDR 45K</span></div>
+
+            <a href="#"><i data-feather="shopping-cart"></i><span>add to cart</span></a>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     
