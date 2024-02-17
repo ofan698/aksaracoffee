@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aksara Coffee</title>
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- alpine js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    
 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,11 +20,18 @@
       rel="stylesheet"
     />
     <script src="https://unpkg.com/feather-icons"></script>
+    <!-- app js src -->
+    <script src="src/app.js" async></script>
+
+    <!-- snap js midtrans -->
+    <script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-XRPiQE2ZqioQ8ZQy"></script>
   </head>
   
   <body>
     <!-- navbar -->
-    <nav class="navbar">
+    <nav class="navbar" x-data>
       <a href="#" class="navbar-logo">aksara<span>coffee</span>.</a>
 
       <div class="navbar-nav">
@@ -33,7 +44,10 @@
 
       <div class="navbar-extra">
         <a href="#" id="search-button"><i data-feather="search"></i></a>
-        <a href="#" id="shopping-cart-button"><i data-feather="shopping-cart"></i></a>
+        <a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
 
@@ -46,33 +60,40 @@
 
     <!-- shoppping cart -->
     <div class="shopping-cart">
+      <template x-for="(item, index) in $store.cart.items" x-keys="index">
       <div class="cart-item">
-        <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
+        <img :src="`assets/img/product/${item.img}`" :alt="item.name">
         <div class="item-detail">
-          <h3>product 1</h3>
-          <div class="item-price">IDR 30K</div>
+          <h3 x-text="item.name"></h3>
+          <div class="item-price">
+            <span x-text="rupiah(item.price)"></span> &times;
+            <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+            <span x-text="item.quantity"></span>
+            <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+            <span x-text="rupiah(item.total)"></span>
+          </div>
         </div>
-
-        <i data-feather="trash-2" class="remove-item"></i>
       </div>
-      <div class="cart-item">
-        <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
-        <div class="item-detail">
-          <h3>product 1</h3>
-          <div class="item-price">IDR 30K</div>
-        </div>
+    </template>
 
-        <i data-feather="trash-2" class="remove-item"></i>
-      </div>
-      <div class="cart-item">
-        <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
-        <div class="item-detail">
-          <h3>product 1</h3>
-          <div class="item-price">IDR 30K</div>
-        </div>
+    <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart is Empty</h4>
+    <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
 
-        <i data-feather="trash-2" class="remove-item"></i>
-      </div>
+    <div class="form-container" x-show="$store.cart.items.length">
+      <form action="" id="checkoutForm">
+        <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+        <input type="hidden" name="total" x-model="$store.cart.total">
+        <h5>Customer Detail</h5>
+      
+      <label for="name"><span>Name</span><input type="text" name="name" id="name"></label>
+      <label for="email"><span>Email</span><input type="email" name="email" id="email"></label>
+      <label for="phone"><span>Phone</span><input type="number" name="phone" id="phone"></label>
+      <div id="snap-container"></div>
+
+      <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout</button>
+    </form>
+        
+    </div>
       
     </div>
 
@@ -141,74 +162,98 @@
     <!-- menu section end-->
 
     <!-- product list -->
-    <section class="products" id="products">
+    <section class="products" id="products" x-data="products">
       <h2><span>Our</span> Products</h2>
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia reiciendis tenetur suscipit, tempore, quidem possimus error rerum vitae eaque atque dignissimos, iste soluta. Vitae cupiditate pariatur voluptates praesentium recusandae dolor.</p>
 
       <div class="row">
+        <template x-for="(item, index) in items" x-key="index">
         <div class="product-card">
           <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+            <a href="#" @click.prevent="$store.cart.add(item)">
+              <svg
+  width="24"
+  height="24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="feather-sprite.svg#shopping-cart" />
+</svg>
+            </a>
+            <a href="#" class="item-detail-button"><svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <use href="feather-sprite.svg#eye" />
+            </svg></a>
           </div>
           <div class="product-image">
-            <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
+            <img :src="`assets/img/product/${item.img}`" :alt="item.name">
           </div>
           <div class="product-content">
-            <h3>Jamaican - Nganjuk Coffee Beans</h3>
+            <h3 x-text="item.name"></h3>
             <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
+              <svg
+  width="24"
+  height="24"
+  fill="currentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="feather-sprite.svg#star" />
+</svg>
+
+<svg
+  width="24"
+  height="24"
+  fill="currentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="feather-sprite.svg#star" />
+</svg>
+
+<svg
+  width="24"
+  height="24"
+  fill="currentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="feather-sprite.svg#star" />
+</svg>
+
+<svg
+  width="24"
+  height="24"
+  fill="currentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="feather-sprite.svg#star" />
+</svg>
             </div>
 
-            <div class="product-price">IDR 30K <span>IDR 45K</span></div>
+            <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
           </div>
         </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
-          </div>
-          <div class="product-content">
-            <h3>Jamaican - Nganjuk Coffee Beans</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-            </div>
-
-            <div class="product-price">IDR 30K <span>IDR 45K</span></div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="assets/img/product/lex-sirikiat-QouiCn7u6kw-unsplash (1).jpg" alt="product-1">
-          </div>
-          <div class="product-content">
-            <h3>Jamaican - Nganjuk Coffee Beans</h3>
-            <div class="product-stars">
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-            </div>
-
-            <div class="product-price">IDR 30K <span>IDR 45K</span></div>
-          </div>
-        </div>
+      </template>
       </div>
 
     </section>
@@ -220,7 +265,7 @@
       <div class="row">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127669.04951187684!2d101.3586013424578!3d0.5139623323603929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5ab80690ee7b1%3A0x94dde92c3823dbe4!2sPekanbaru%2C%20Pekanbaru%20City%2C%20Riau!5e0!3m2!1sen!2sid!4v1706071918989!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
 
-        <form action="">
+        <form action="" id="checkoutForm">
           <div class="input-group">
             <i data-feather="user"></i>
             <input type="text" name="" id="" placeholder="Name">
